@@ -1,7 +1,7 @@
 
 namespace ariel{
 
-enum  Unit{
+enum Unit{
     CM,
     M,
     KM,
