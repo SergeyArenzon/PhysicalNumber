@@ -1,6 +1,7 @@
 #include <iostream>
 #include "PhysicalNumber.h"
 #include "math.h"
+#include <stdexcept>
 using namespace std;
 
 ariel::PhysicalNumber::PhysicalNumber(int num ,Unit unit){
@@ -84,30 +85,24 @@ string ariel:: checkUnit(int x){
 
 }
 
-// ariel::Unit ariel::strToUnit(string str){
-//     if(str.compare("cm")) return Unit::CM;
-//     else if(str.compare("m")) return Unit::M; 
-//     else if(str.compare("km")) return Unit::KM;
-//     else if(str.compare("sec")) return Unit::SEC;     
-//     else if(str.compare("min")) return Unit::MIN;
-          
-          
-          
-        
-//         // case 5:
-//         //     return "hour";
-//         //     break;
-//         // case 6:
-//         //     return "g";
-//         //     break;
-//         // case 7:
-//         //     return "kg";
-//         //     break;
-//         // case 8:
-//         //     return "ton";
-//         //     break;
-        
+ariel::Unit ariel::strToUnit(string str){
+    
+    if(str.compare("cm")==0) return Unit::CM;
+    else if(str.compare("m")==0) return Unit::M; 
+    else if(str.compare("km")==0) return Unit::KM;
+    else if(str.compare("sec")==0) return Unit::SEC;     
+    else if(str.compare("min")==0) return Unit::MIN;
+    else if(str.compare("hour")==0) return Unit::HOUR;  
+    else if(str.compare("g")==0) return Unit::G;      
+    else if(str.compare("kg")==0) return Unit::KG;      
+    else if(str.compare("ton")==0) return Unit::TON;    
+}
+
+bool ariel::ifDifUnit(int x,int y){
+    if(0<=x && x<=2 && 0<=y && y<=2) return true;
+    else if(3<=x && x<=6 && 3<=y && y<=6) return true;
+    else if(6<=x && x<=9 && 6<=y && y<=9) return true;
+    return false;
 
 
-// }
-
+}

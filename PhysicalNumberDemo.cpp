@@ -22,24 +22,28 @@ int main() {
      cout << (b-a) << endl;   // Prints "-1700[m]"
      cout << (-a) << endl;   // Prints "-2[km]"
 
-     cout << boolalpha; // print booleans as strings from now on:
+    cout << boolalpha; // print booleans as strings from now on:
      cout << (a>b) << endl;  // Prints "true"
      cout << (a<=b) << endl;  // Prints "false"
-     //cout << (a==PhysicalNumber(2000, Unit::M)) << endl;  // Prints "true"
+     cout << (a==PhysicalNumber(2000, Unit::M)) << endl;  // Prints "true"
 
     istringstream input("700[kg]");
-     //input >> a;
-     //cout << a << endl;   // Prints "700[kg]"
-    // cout << (a += PhysicalNumber(1, Unit::TON)) << endl;  // prints "1700[kg]"
-    // cout << a << endl;   // Prints "1700[kg]" since a has changed.
+    input >> a;
+   cout << a << endl;   // Prints "700[kg]"
+    cout << (a += PhysicalNumber(1, Unit::TON)) << endl;  // prints "1700[kg]"
+    cout << a << endl;   // Prints "1700[kg]" since a has changed.
 
     try {
-    //  cout << (a+b) << endl;  
+      
+      cout << (a+b) << endl;  
+      
     } catch (const std::exception& ex) {
-    //  cout << ex.what() << endl; // Prints "Units do not match - [m] cannot be converted to [kg]"
+      
+      cout << ex.what() << endl; // Prints "Units do not match - [m] cannot be converted to [kg]"
     }
+  
   } catch (...) {
-   // cout << "Unexpected exception!" << endl;
+    cout << "Unexpected exception!" << endl;
   }
   return 100;
 }

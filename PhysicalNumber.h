@@ -3,42 +3,44 @@
 using namespace std;
 #include "Unit.h"
 #include <vector>
-
+#include <sstream>
+#include <stdexcept>
 namespace ariel{
     string checkUnit(int x);
     double unitComputer(int enm1, int enm2);
     Unit strToUnit(string str);
+    bool ifDifUnit(int x,int y);
+
 class PhysicalNumber{
 
 ariel::Unit unit;
 int num;
 public:
 PhysicalNumber(int num ,Unit unit);
+int getNum();
+Unit getUnit();
 friend ostream& operator<< (ostream& os,  PhysicalNumber& pn){
     os<<pn.getNum()<<"["<<ariel::checkUnit(pn.getUnit())<<"]";
     return os;
 }
-
-// friend PhysicalNumber& operator>>( string  &input, PhysicalNumber &pn ) { 
-//     stringstream test(input);
-//     string segment;
-//     vector<std::string> seglist;
-
-//     while(std::getline(test, segment, ('[',']')))
-//     {
-//          seglist.push_back(segment);           
-//     }
-    
-//     std::istringstream ss(seglist.at(0));
-//     ss >> val;
-
-
-//    pn=PhysicalNumber(val , )
-//     return 
-//       }
+friend istream& operator>>(istream &is, PhysicalNumber& num) {return is;}
+friend PhysicalNumber& operator>>( istringstream  &input, PhysicalNumber &pn ) { 
+    string segment;
+    vector<std::string> seglist;
+    while(std::getline(input, segment, '[')) {    
+    seglist.push_back(segment);  
+    }         
+    seglist.at(1) = seglist.at(1).substr(0, seglist.at(1).length() - 1);  
+    istringstream ss(seglist.at(0));
+    int val;
+    ss >> val;
+    pn=PhysicalNumber(val , strToUnit(seglist.at(1)));
+    return pn;
+      }
 
 
-friend string operator+ ( PhysicalNumber& pn,  PhysicalNumber& other){    
+friend string operator+ ( PhysicalNumber& pn,  PhysicalNumber& other){  
+    if(!ifDifUnit(pn.getUnit(),other.getUnit()))  return "wrong"; 
     double x= pn.getNum()+other.getNum()*unitComputer(pn.getUnit(),other.getUnit());   
     ostringstream strs;
     strs << x;
@@ -76,8 +78,18 @@ friend bool operator< ( PhysicalNumber& pn,  PhysicalNumber& other){
 }
 
 friend bool operator== ( PhysicalNumber& pn,  PhysicalNumber& other){    
+    if(ifDifUnit(pn.getUnit(),other.getUnit())==true)  {
     if (pn.getNum() == other.getNum()*unitComputer(pn.getUnit(),other.getUnit())) return true;
-    else return false;
+    }
+    return false;
+}
+
+
+friend bool operator== ( PhysicalNumber& pn,  PhysicalNumber other){
+    if(ifDifUnit(pn.getUnit(),other.getUnit())==true)  {
+    if (pn.getNum() == other.getNum()*unitComputer(pn.getUnit(),other.getUnit())) return true;
+    }
+    return false;
 }
 
 
@@ -88,11 +100,19 @@ friend bool operator<= ( PhysicalNumber& pn,  PhysicalNumber& other){
     else return false;
 }
 
+friend PhysicalNumber& operator+=(PhysicalNumber& pn , PhysicalNumber other){
+    if(ifDifUnit(pn.getUnit(),other.getUnit())==true) {
+        int x = pn.getNum()+other.getNum()*unitComputer(pn.getUnit(),other.getUnit());
+        pn.num = x;
+        return pn;
+    }
+ throw("different units");
+}
 
 
 
-int getNum();
-Unit getUnit();
+
+
 
 };
 

@@ -43,9 +43,10 @@ int main() {
     .CHECK_THROWS(a+c)
     .CHECK_THROWS(a+d)
     .CHECK_THROWS(b+c)
-    .CHECK_THROWS(b+d)
+    .CHECK_THROWS(b+d) 
 
-    .setname("Basic input")
+
+.setname("Basic input")
     .CHECK_OK(istringstream("700[kg]") >> a)
     .CHECK_OUTPUT((a += PhysicalNumber(1, Unit::TON)), "1700[kg]")
 
