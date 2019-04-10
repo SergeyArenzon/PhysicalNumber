@@ -10,14 +10,17 @@ namespace ariel{
     double unitComputer(int enm1, int enm2);
     Unit strToUnit(string str);
     bool ifDifUnit(int x,int y);
+    
+ 
+    
 
 class PhysicalNumber{
 
 ariel::Unit unit;
-int num;
+double num;
 public:
-PhysicalNumber(int num ,Unit unit);
-int getNum();
+PhysicalNumber(double num ,Unit unit);
+double getNum();
 Unit getUnit();
 friend ostream& operator<< (ostream& os,  PhysicalNumber& pn){
     os<<pn.getNum()<<"["<<ariel::checkUnit(pn.getUnit())<<"]";
@@ -40,7 +43,9 @@ friend PhysicalNumber& operator>>( istringstream  &input, PhysicalNumber &pn ) {
 
 
 friend string operator+ ( PhysicalNumber& pn,  PhysicalNumber& other){  
-    if(!ifDifUnit(pn.getUnit(),other.getUnit()))  return "wrong"; 
+    if(!ifDifUnit(pn.getUnit(),other.getUnit())
+     )throw std::runtime_error("Units do not match - ["+ariel::checkUnit(other.getUnit())+"] cannot be converted to ["+ariel::checkUnit(pn.getUnit())+"]");
+  
     double x= pn.getNum()+other.getNum()*unitComputer(pn.getUnit(),other.getUnit());   
     ostringstream strs;
     strs << x;
@@ -102,11 +107,12 @@ friend bool operator<= ( PhysicalNumber& pn,  PhysicalNumber& other){
 
 friend PhysicalNumber& operator+=(PhysicalNumber& pn , PhysicalNumber other){
     if(ifDifUnit(pn.getUnit(),other.getUnit())==true) {
-        int x = pn.getNum()+other.getNum()*unitComputer(pn.getUnit(),other.getUnit());
+        cout<<other.getNum()*unitComputer(pn.getUnit(),other.getUnit())<<endl;
+        double x = pn.getNum()+other.getNum()*unitComputer(pn.getUnit(),other.getUnit()); 
         pn.num = x;
         return pn;
-    }
- throw("different units");
+    }else {throw std::runtime_error("Units do not match - ["+ariel::checkUnit(other.getUnit())+"] cannot be converted to ["+ariel::checkUnit(pn.getUnit())+"]");}
+ 
 }
 
 

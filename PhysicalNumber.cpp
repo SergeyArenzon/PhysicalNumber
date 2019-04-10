@@ -4,11 +4,11 @@
 #include <stdexcept>
 using namespace std;
 
-ariel::PhysicalNumber::PhysicalNumber(int num ,Unit unit){
+ariel::PhysicalNumber::PhysicalNumber(double num ,Unit unit){
     this->num=num;
     this->unit=unit;
 };
-int ariel:: PhysicalNumber::getNum(){
+double ariel:: PhysicalNumber::getNum(){
     return num;
 };
 
@@ -17,8 +17,8 @@ ariel::Unit ariel:: PhysicalNumber::getUnit(){
 };
 
  double ariel::unitComputer(int enm1,int enm2){
-    if(0<=enm1<=2&&0<=enm2<=2){///c,m,km
-       switch (enm1-(enm2))
+    if(0<=enm1 && enm1<=2 && 0<=enm2 && enm2<=2){///c,m,km
+       switch (enm1 -(enm2))
        {
            case -2:
                return pow(10, 4); 
@@ -43,8 +43,58 @@ ariel::Unit ariel:: PhysicalNumber::getUnit(){
 
 
     }
+if(3<=enm1 && enm1<=6 && 0<=enm2 && enm2<=6){///sec,min,hour
+       switch (enm1 -(enm2))
+       {
+           case -2:
+               return pow(10, 2); 
+               break;
+            case -1:
+             return pow(60,1);
+            break;
+
+            case 0:
+                return 1;
+            case 1:
+                return pow(60,-1);
+                break;
+            case 2:
+                return pow(60,-2);
+                break;
+
+           default:
+               break;
+       }
 
 
+
+    }
+if(6<=enm1 && enm1<=9&& 6<=enm2 && enm2<=9){///g,kg,ton
+       switch (enm1 -(enm2))
+       {
+           case -2:
+               return pow(10, 4); 
+               break;
+            case -1:
+             return pow(10,3);
+            break;
+
+            case 0:
+                return 1;
+            case 1:
+                return pow(10,-3);
+                break;
+            case 2:
+                return pow(10,-4);
+                break;
+
+           default:
+               break;
+       }
+
+
+
+    }
 
  }
 
