@@ -26,7 +26,23 @@ friend ostream& operator<< (ostream& os,  PhysicalNumber& pn){
     os<<pn.getNum()<<"["<<ariel::checkUnit(pn.getUnit())<<"]";
     return os;
 }
-friend istream& operator>>(istream &is, PhysicalNumber& num) {return is;}
+friend istream& operator>>(istream &input, PhysicalNumber& pn) {
+    string segment;
+    vector<std::string> seglist;
+    while(std::getline(input, segment, '[')) {    
+    seglist.push_back(segment);  
+    }         
+    seglist.at(1) = seglist.at(1).substr(0, seglist.at(1).length() - 1);  
+    istringstream ss(seglist.at(0));
+    int val;
+    ss >> val;
+    pn=PhysicalNumber(val , strToUnit(seglist.at(1)));
+    return input;
+    
+    }
+
+
+
 friend PhysicalNumber& operator>>( istringstream  &input, PhysicalNumber &pn ) { 
     string segment;
     vector<std::string> seglist;
@@ -106,22 +122,12 @@ friend bool operator<= ( PhysicalNumber& pn,  PhysicalNumber& other){
 }
 
 friend PhysicalNumber& operator+=(PhysicalNumber& pn , PhysicalNumber other){
-    if(ifDifUnit(pn.getUnit(),other.getUnit())==true) {
-        cout<<other.getNum()*unitComputer(pn.getUnit(),other.getUnit())<<endl;
+    if(ifDifUnit(pn.getUnit(),other.getUnit())==true) {   
         double x = pn.getNum()+other.getNum()*unitComputer(pn.getUnit(),other.getUnit()); 
         pn.num = x;
         return pn;
     }else {throw std::runtime_error("Units do not match - ["+ariel::checkUnit(other.getUnit())+"] cannot be converted to ["+ariel::checkUnit(pn.getUnit())+"]");}
  
 }
-
-
-
-
-
-
 };
-
-
-
 }
