@@ -22,6 +22,17 @@ public:
 PhysicalNumber(double num ,Unit unit);
 double getNum();
 Unit getUnit();
+
+
+
+friend PhysicalNumber& operator++( PhysicalNumber &pn ){
+    pn.num=pn.num+1;
+    return pn;
+}
+friend PhysicalNumber& operator--( PhysicalNumber &pn ){
+    pn.num=pn.num-1;
+    return pn;
+}
 friend ostream& operator<< (ostream& os,  PhysicalNumber& pn){
     os<<pn.getNum()<<"["<<ariel::checkUnit(pn.getUnit())<<"]";
     return os;
@@ -68,14 +79,17 @@ friend string operator+ ( PhysicalNumber& pn,  PhysicalNumber& other){
     string str = strs.str();
     return str+"["+checkUnit(pn.getUnit())+"]";
 }
-
-friend string operator- ( PhysicalNumber& pn,  PhysicalNumber& other){    
-    double x=pn.getNum()-other.getNum()*unitComputer(pn.getUnit(),other.getUnit());   
+friend string operator- ( PhysicalNumber& pn,  PhysicalNumber& other){  
+    if(!ifDifUnit(pn.getUnit(),other.getUnit())
+     )throw std::runtime_error("Units do not match - ["+ariel::checkUnit(other.getUnit())+"] cannot be converted to ["+ariel::checkUnit(pn.getUnit())+"]");
+  
+    double x= pn.getNum()-other.getNum()*unitComputer(pn.getUnit(),other.getUnit());   
     ostringstream strs;
     strs << x;
     string str = strs.str();
     return str+"["+checkUnit(pn.getUnit())+"]";
 }
+
 
 
 friend string operator-(PhysicalNumber& pn){
