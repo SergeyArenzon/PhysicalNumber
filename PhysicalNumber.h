@@ -41,9 +41,9 @@ PhysicalNumber& operator+=( PhysicalNumber other);
 PhysicalNumber& operator-=( PhysicalNumber other);
 PhysicalNumber& operator-- (int);
 PhysicalNumber& operator-- ();
-PhysicalNumber operator+ (PhysicalNumber& other);
+PhysicalNumber operator+ (PhysicalNumber other);
 PhysicalNumber operator+ ();
-PhysicalNumber operator- (PhysicalNumber& other);
+PhysicalNumber operator- (PhysicalNumber other);
 PhysicalNumber operator- ();
 
 

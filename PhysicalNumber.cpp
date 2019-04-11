@@ -192,7 +192,7 @@ PhysicalNumber PhysicalNumber::operator-() {
      
      return a;
 }
- PhysicalNumber PhysicalNumber:: operator+ (PhysicalNumber& other){ 
+ PhysicalNumber PhysicalNumber:: operator+ (PhysicalNumber other){ 
         
     if(!ifDifUnit(this->getUnit(),other.getUnit())){
         throw std::runtime_error("Units do not match - ["+ariel::checkUnit(other.getUnit())+"] cannot be converted to ["+ariel::checkUnit(this->getUnit())+"]");
@@ -205,7 +205,7 @@ PhysicalNumber PhysicalNumber::operator-() {
 }
 
 
-PhysicalNumber PhysicalNumber:: operator- (PhysicalNumber& other){  
+PhysicalNumber PhysicalNumber:: operator- (PhysicalNumber other){  
     if(!ifDifUnit(this->getUnit(),other.getUnit())
      )throw std::runtime_error("Units do not match - ["+ariel::checkUnit(other.getUnit())+"] cannot be converted to ["+ariel::checkUnit(this->getUnit())+"]");
 
