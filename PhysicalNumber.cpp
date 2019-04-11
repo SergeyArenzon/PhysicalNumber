@@ -5,6 +5,7 @@
 using namespace std;
 
 ariel::PhysicalNumber::PhysicalNumber(double num ,Unit unit){
+
     this->num=num;
     this->unit=unit;
 };
@@ -146,6 +147,7 @@ ariel::Unit ariel::strToUnit(string str){
     else if(str.compare("g")==0) return Unit::G;      
     else if(str.compare("kg")==0) return Unit::KG;      
     else if(str.compare("ton")==0) return Unit::TON;    
+    throw std::runtime_error("Bad input unit");
 }
 
 bool ariel::ifDifUnit(int x,int y){
