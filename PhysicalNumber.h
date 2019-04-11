@@ -143,5 +143,15 @@ friend PhysicalNumber& operator+=(PhysicalNumber& pn , PhysicalNumber other){
     }else {throw std::runtime_error("Units do not match - ["+ariel::checkUnit(other.getUnit())+"] cannot be converted to ["+ariel::checkUnit(pn.getUnit())+"]");}
  
 }
+
+
+friend PhysicalNumber& operator-=(PhysicalNumber& pn , PhysicalNumber other){
+    if(ifDifUnit(pn.getUnit(),other.getUnit())==true) {   
+        double x = pn.getNum()-other.getNum()*unitComputer(pn.getUnit(),other.getUnit()); 
+        pn.num = x;
+        return pn;
+    }else {throw std::runtime_error("Units do not match - ["+ariel::checkUnit(other.getUnit())+"] cannot be converted to ["+ariel::checkUnit(pn.getUnit())+"]");}
+ 
+}
 };
 }
