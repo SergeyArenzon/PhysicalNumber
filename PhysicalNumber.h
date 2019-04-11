@@ -126,8 +126,18 @@ friend bool operator== ( PhysicalNumber& pn,  PhysicalNumber other){
     }
     return false;
 }
-
-
+friend bool operator!= ( PhysicalNumber& pn,  PhysicalNumber& other){    
+    if(ifDifUnit(pn.getUnit(),other.getUnit())==true)  {
+    if (pn.getNum() == other.getNum()*unitComputer(pn.getUnit(),other.getUnit())) return false;
+    }
+    return true;
+}
+friend bool operator!= ( PhysicalNumber& pn,  PhysicalNumber other){    
+    if(ifDifUnit(pn.getUnit(),other.getUnit())==true)  {
+    if (pn.getNum() == other.getNum()*unitComputer(pn.getUnit(),other.getUnit())) return false;
+    }
+    return true;
+}
 
 
 friend bool operator<= ( PhysicalNumber& pn,  PhysicalNumber& other){    
