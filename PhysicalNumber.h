@@ -37,6 +37,7 @@ bool operator< (PhysicalNumber& other);
 bool operator== (PhysicalNumber other);
 bool operator!= (PhysicalNumber other);
 bool operator<= (PhysicalNumber other);
+bool operator>= (PhysicalNumber other);
 PhysicalNumber& operator+=( PhysicalNumber other);
 PhysicalNumber& operator-=( PhysicalNumber other);
 PhysicalNumber& operator-- (int);

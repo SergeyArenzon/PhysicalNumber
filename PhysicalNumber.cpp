@@ -263,3 +263,7 @@ PhysicalNumber &PhysicalNumber::operator++() {
     this->num +=1;
     return *this;
 }
+bool PhysicalNumber::operator>= (PhysicalNumber other){    
+    if (((*this).getNum() == other.getNum()*unitComputer((*this).getUnit(),other.getUnit())) ||  ((*this).getNum() > other.getNum()*unitComputer((*this).getUnit(),other.getUnit()))) return true;
+    else return false;
+}
