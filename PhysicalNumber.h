@@ -112,12 +112,12 @@ friend bool operator< ( PhysicalNumber& pn,  PhysicalNumber& other){
     else return false;
 }
 
-friend bool operator== ( PhysicalNumber& pn,  PhysicalNumber& other){    
-    if(ifDifUnit(pn.getUnit(),other.getUnit())==true)  {
-    if (pn.getNum() == other.getNum()*unitComputer(pn.getUnit(),other.getUnit())) return true;
-    }else throw runtime_error("Wrong units!");
-    return false;
-}
+// friend bool operator== ( PhysicalNumber& pn,  PhysicalNumber& other){    
+//     if(ifDifUnit(pn.getUnit(),other.getUnit())==true)  {
+//     if (pn.getNum() == other.getNum()*unitComputer(pn.getUnit(),other.getUnit())) return true;
+//     }else throw runtime_error("Wrong units!");
+//     return false;
+// }
 
 
 friend bool operator== ( PhysicalNumber& pn,  PhysicalNumber other){
@@ -126,18 +126,18 @@ friend bool operator== ( PhysicalNumber& pn,  PhysicalNumber other){
     }else throw runtime_error("Wrong units!");
     return false;
 }
-friend bool operator!= ( PhysicalNumber& pn,  PhysicalNumber& other){    
-    if(ifDifUnit(pn.getUnit(),other.getUnit())==true)  {
-    if (pn.getNum() == other.getNum()*unitComputer(pn.getUnit(),other.getUnit())) return false;
-    }else throw runtime_error("Wrong units!");
-    return true;
-}
-// friend bool operator!= ( PhysicalNumber& pn,  PhysicalNumber other){    
+// friend bool operator!= ( PhysicalNumber& pn,  PhysicalNumber& other){    
 //     if(ifDifUnit(pn.getUnit(),other.getUnit())==true)  {
 //     if (pn.getNum() == other.getNum()*unitComputer(pn.getUnit(),other.getUnit())) return false;
 //     }else throw runtime_error("Wrong units!");
 //     return true;
 // }
+friend bool operator!= ( PhysicalNumber& pn,  PhysicalNumber other){    
+    if(ifDifUnit(pn.getUnit(),other.getUnit())==true)  {
+    if (pn.getNum() == other.getNum()*unitComputer(pn.getUnit(),other.getUnit())) return false;
+    }else throw runtime_error("Wrong units!");
+    return true;
+}
 
 
 friend bool operator<= ( PhysicalNumber& pn,  PhysicalNumber& other){    
