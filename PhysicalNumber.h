@@ -25,13 +25,12 @@ Unit getUnit();
 
 
 
- PhysicalNumber& operator++() ;
- PhysicalNumber& operator++(int);
-friend ostream& operator<< (ostream& os,  PhysicalNumber& pn);
+PhysicalNumber& operator++() ;
+PhysicalNumber& operator++(int);
+friend ostream& operator<< (ostream& os,  PhysicalNumber pn);
 friend istream& operator>>(istream &input, PhysicalNumber& pn);
-PhysicalNumber& operator+();
-string operator+ (PhysicalNumber& other);
-string operator- (PhysicalNumber& other);
+//string operator+ (PhysicalNumber& other);
+//string operator- (PhysicalNumber& other);
 bool operator> (PhysicalNumber& other);
 bool operator< (PhysicalNumber& other);
 bool operator== (PhysicalNumber other);
@@ -42,18 +41,11 @@ PhysicalNumber& operator+=( PhysicalNumber other);
 PhysicalNumber& operator-=( PhysicalNumber other);
 PhysicalNumber& operator-- (int);
 PhysicalNumber& operator-- ();
+PhysicalNumber operator+ (PhysicalNumber& other);
+PhysicalNumber operator+ ();
+PhysicalNumber operator- (PhysicalNumber& other);
+PhysicalNumber operator- ();
 
-
-
-friend string operator-(PhysicalNumber& pn){
-    double x = -(pn.getNum());
-    ostringstream strs;
-    strs<<x;
-    string str = strs.str();
-    return str+"["+checkUnit(pn.getUnit())+"]";
-
-
-}
 
 
 

@@ -163,7 +163,7 @@ bool ariel::ifDifUnit(int x,int y){
 
 
 
-ostream& ariel::operator<< (ostream& os,  PhysicalNumber& pn){//<<
+ostream& ariel::operator<< (ostream& os,  PhysicalNumber pn){//<<
     os<<pn.getNum()<<"["<<ariel::checkUnit(pn.getUnit())<<"]";
     return os;
 }
@@ -182,30 +182,41 @@ ostream& ariel::operator<< (ostream& os,  PhysicalNumber& pn){//<<
     
     }
 
-PhysicalNumber& PhysicalNumber::operator+() {
+PhysicalNumber PhysicalNumber::operator+() {
     return *this;
 }
- string PhysicalNumber:: operator+ (PhysicalNumber& other){  
-    if(!ifDifUnit(this->getUnit(),other.getUnit())
-     )throw std::runtime_error("Units do not match - ["+ariel::checkUnit(other.getUnit())+"] cannot be converted to ["+ariel::checkUnit(this->getUnit())+"]");
-  
-    double x= this->getNum()+other.getNum()*unitComputer(this->getUnit(),other.getUnit());   
-    ostringstream strs;
-    strs << x;
-    string str = strs.str();
-    return str+"["+checkUnit(this->getUnit())+"]";
+PhysicalNumber PhysicalNumber::operator-() {
+    double x = -(this->num);
+
+    PhysicalNumber a(x,this->unit);
+     
+     return a;
 }
-string PhysicalNumber:: operator- (PhysicalNumber& other){  
+ PhysicalNumber PhysicalNumber:: operator+ (PhysicalNumber& other){ 
+        
+    if(!ifDifUnit(this->getUnit(),other.getUnit())){
+        throw std::runtime_error("Units do not match - ["+ariel::checkUnit(other.getUnit())+"] cannot be converted to ["+ariel::checkUnit(this->getUnit())+"]");
+    }
+    double x= this->getNum()+other.getNum()*unitComputer(this->getUnit(),other.getUnit()); 
+    Unit u(this->getUnit());  
+    
+    PhysicalNumber a(x,u);
+    return a;
+}
+
+
+PhysicalNumber PhysicalNumber:: operator- (PhysicalNumber& other){  
     if(!ifDifUnit(this->getUnit(),other.getUnit())
      )throw std::runtime_error("Units do not match - ["+ariel::checkUnit(other.getUnit())+"] cannot be converted to ["+ariel::checkUnit(this->getUnit())+"]");
-  
+
     double x= this->getNum()-other.getNum()*unitComputer(this->getUnit(),other.getUnit());   
-    ostringstream strs;
-    strs << x;
-    string str = strs.str();
-    return str+"["+checkUnit(this->getUnit())+"]";
+    Unit u =this->unit;  
+    PhysicalNumber a (x,u);
+  
+    return a;
 }
- bool PhysicalNumber::operator> ( PhysicalNumber& other){     
+ bool PhysicalNumber::operator> ( PhysicalNumber& other){ 
+    
     if (this->getNum() > other.getNum()*unitComputer(this->getUnit(),other.getUnit())) return true;
     else return false;
 }

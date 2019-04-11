@@ -23,7 +23,7 @@ int main() {
     PhysicalNumber b(300, Unit::M);
     PhysicalNumber c(2, Unit::HOUR);
     PhysicalNumber d(30, Unit::MIN);
-
+    
     testcase
     .setname("Basic output")
     .CHECK_OUTPUT(a, "2[km]")
@@ -67,7 +67,7 @@ int main() {
       .CHECK_OUTPUT((c+=d), "2.5[hour]")
       .CHECK_OUTPUT(c, "2.5[hour]")
       .CHECK_OUTPUT(++c, "3.5[hour]")
-      
+
 
       .setname("Incompatible dimensions")
       .CHECK_THROWS(c+a)
@@ -75,7 +75,7 @@ int main() {
       .CHECK_THROWS(d+a)
       .CHECK_THROWS(d+b)
       .CHECK_THROWS(a-c)
-
+      
 
       .setname("Basic input")
       .CHECK_OK(istringstream("30[min]") >> c)
