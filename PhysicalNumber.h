@@ -26,7 +26,7 @@ Unit getUnit();
 
 
  PhysicalNumber& operator++() ;
- PhysicalNumber operator++(int);
+ PhysicalNumber& operator++(int);
 friend ostream& operator<< (ostream& os,  PhysicalNumber& pn);
 friend istream& operator>>(istream &input, PhysicalNumber& pn);
 PhysicalNumber& operator+();

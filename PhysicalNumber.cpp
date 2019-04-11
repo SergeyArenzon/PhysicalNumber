@@ -161,16 +161,8 @@ bool ariel::ifDifUnit(int x,int y){
 
 
 
-PhysicalNumber& PhysicalNumber::operator++(){//++
-num++;  
-return *this;
-}
-PhysicalNumber PhysicalNumber::operator++(int){//++
-    PhysicalNumber temp=*this;
-    num++;
-    return  temp;
-  
-}
+
+
 ostream& ariel::operator<< (ostream& os,  PhysicalNumber& pn){//<<
     os<<pn.getNum()<<"["<<ariel::checkUnit(pn.getUnit())<<"]";
     return os;
@@ -257,8 +249,17 @@ PhysicalNumber& PhysicalNumber::operator-=(PhysicalNumber other){
     this->num -=1;
     return *this;
 }
-
 PhysicalNumber &PhysicalNumber::operator--() {
     this->num -=1;
+    return *this;
+}
+ PhysicalNumber& PhysicalNumber::operator++(int) {
+
+    this->num+=1;
+    return *this;
+}
+
+PhysicalNumber &PhysicalNumber::operator++() {
+    this->num +=1;
     return *this;
 }
