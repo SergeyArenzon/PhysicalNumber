@@ -25,73 +25,20 @@ Unit getUnit();
 
 
 
-friend PhysicalNumber& operator++( PhysicalNumber &pn ){
-    pn.num=pn.num+1;
-    return pn;
-}
-friend PhysicalNumber& operator--( PhysicalNumber &pn ){
-    pn.num=pn.num-1;
-    return pn;
-}
-friend ostream& operator<< (ostream& os,  PhysicalNumber& pn){
-    os<<pn.getNum()<<"["<<ariel::checkUnit(pn.getUnit())<<"]";
-    return os;
-}
-friend istream& operator>>(istream &input, PhysicalNumber& pn) {
-    string segment;
-    vector<std::string> seglist;
-    while(std::getline(input, segment, '[')) {    
-    seglist.push_back(segment);  
-    }         
-    seglist.at(1) = seglist.at(1).substr(0, seglist.at(1).length() - 1);  
-    istringstream ss(seglist.at(0));
-    int val;
-    ss >> val;
-    pn=PhysicalNumber(val , strToUnit(seglist.at(1)));
-    return input;
-    
-    }
-
-
-
-friend PhysicalNumber& operator>>( istringstream  &input, PhysicalNumber &pn ) { 
-    string segment;
-    vector<std::string> seglist;
-    while(std::getline(input, segment, '[')) {    
-    seglist.push_back(segment);  
-    }         
-    seglist.at(1) = seglist.at(1).substr(0, seglist.at(1).length() - 1);  
-    istringstream ss(seglist.at(0));
-    int val;
-    ss >> val;
-    pn=PhysicalNumber(val , strToUnit(seglist.at(1)));
-    return pn;
-      }
-
-
-friend string operator+ ( PhysicalNumber& pn,  PhysicalNumber& other){  
-    if(!ifDifUnit(pn.getUnit(),other.getUnit())
-     )throw std::runtime_error("Units do not match - ["+ariel::checkUnit(other.getUnit())+"] cannot be converted to ["+ariel::checkUnit(pn.getUnit())+"]");
-  
-    double x= pn.getNum()+other.getNum()*unitComputer(pn.getUnit(),other.getUnit());   
-    ostringstream strs;
-    strs << x;
-    string str = strs.str();
-    return str+"["+checkUnit(pn.getUnit())+"]";
-}
-friend string operator- ( PhysicalNumber& pn,  PhysicalNumber& other){  
-    if(!ifDifUnit(pn.getUnit(),other.getUnit())
-     )throw std::runtime_error("Units do not match - ["+ariel::checkUnit(other.getUnit())+"] cannot be converted to ["+ariel::checkUnit(pn.getUnit())+"]");
-  
-    double x= pn.getNum()-other.getNum()*unitComputer(pn.getUnit(),other.getUnit());   
-    ostringstream strs;
-    strs << x;
-    string str = strs.str();
-    return str+"["+checkUnit(pn.getUnit())+"]";
-}
-
-
-
+ PhysicalNumber& operator++() ;
+ PhysicalNumber operator++(int);
+friend ostream& operator<< (ostream& os,  PhysicalNumber& pn);
+friend istream& operator>>(istream &input, PhysicalNumber& pn);
+PhysicalNumber& operator+();
+string operator+ (PhysicalNumber& other);
+string operator- (PhysicalNumber& other);
+bool operator> (PhysicalNumber& other);
+bool operator< (PhysicalNumber& other);
+bool operator== (PhysicalNumber other);
+bool operator!= (PhysicalNumber other);
+bool operator<= (PhysicalNumber other);
+PhysicalNumber& operator+=( PhysicalNumber other);
+PhysicalNumber& operator-=( PhysicalNumber other);
 friend string operator-(PhysicalNumber& pn){
     double x = -(pn.getNum());
     ostringstream strs;
@@ -102,15 +49,55 @@ friend string operator-(PhysicalNumber& pn){
 
 }
 
-friend bool operator> ( PhysicalNumber& pn,  PhysicalNumber& other){    
-    if (pn.getNum() > other.getNum()*unitComputer(pn.getUnit(),other.getUnit())) return true;
-    else return false;
-}
 
-friend bool operator< ( PhysicalNumber& pn,  PhysicalNumber& other){    
-    if (pn.getNum() < other.getNum()*unitComputer(pn.getUnit(),other.getUnit())) return true;
-    else return false;
-}
+
+
+
+
+// friend PhysicalNumber& operator>>( istringstream  &input, PhysicalNumber &pn ) { 
+//     string segment;
+//     vector<std::string> seglist;
+//     while(std::getline(input, segment, '[')) {    
+//     seglist.push_back(segment);  
+//     }         
+//     seglist.at(1) = seglist.at(1).substr(0, seglist.at(1).length() - 1);  
+//     istringstream ss(seglist.at(0));
+//     int val;
+//     ss >> val;
+//     pn=PhysicalNumber(val , strToUnit(seglist.at(1)));
+//     return pn;
+//       }
+
+
+
+
+
+
+ 
+   
+
+
+
+
+// friend string operator-(PhysicalNumber& pn){
+//     double x = -(pn.getNum());
+//     ostringstream strs;
+//     strs<<x;
+//     string str = strs.str();
+//     return str+"["+checkUnit(pn.getUnit())+"]";
+
+
+// }
+
+// friend bool operator> ( PhysicalNumber& pn,  PhysicalNumber& other){    
+//     if (pn.getNum() > other.getNum()*unitComputer(pn.getUnit(),other.getUnit())) return true;
+//     else return false;
+// }
+
+// friend bool operator< ( PhysicalNumber& pn,  PhysicalNumber& other){    
+//     if (pn.getNum() < other.getNum()*unitComputer(pn.getUnit(),other.getUnit())) return true;
+//     else return false;
+// }
 
 // friend bool operator== ( PhysicalNumber& pn,  PhysicalNumber& other){    
 //     if(ifDifUnit(pn.getUnit(),other.getUnit())==true)  {
@@ -120,48 +107,50 @@ friend bool operator< ( PhysicalNumber& pn,  PhysicalNumber& other){
 // }
 
 
-friend bool operator== ( PhysicalNumber& pn,  PhysicalNumber other){
-    if(ifDifUnit(pn.getUnit(),other.getUnit())==true)  {
-    if (pn.getNum() == other.getNum()*unitComputer(pn.getUnit(),other.getUnit())) return true;
-    }else throw runtime_error("Wrong units!");
-    return false;
-}
+// friend bool operator== ( PhysicalNumber& pn,  PhysicalNumber other){
+//     if(ifDifUnit(pn.getUnit(),other.getUnit())==true)  {
+//     if (pn.getNum() == other.getNum()*unitComputer(pn.getUnit(),other.getUnit())) return true;
+//     }else throw runtime_error("Wrong units!");
+//     return false;
+// }
+
+
 // friend bool operator!= ( PhysicalNumber& pn,  PhysicalNumber& other){    
 //     if(ifDifUnit(pn.getUnit(),other.getUnit())==true)  {
 //     if (pn.getNum() == other.getNum()*unitComputer(pn.getUnit(),other.getUnit())) return false;
 //     }else throw runtime_error("Wrong units!");
 //     return true;
 // }
-friend bool operator!= ( PhysicalNumber& pn,  PhysicalNumber other){    
-    if(ifDifUnit(pn.getUnit(),other.getUnit())==true)  {
-    if (pn.getNum() == other.getNum()*unitComputer(pn.getUnit(),other.getUnit())) return false;
-    }else throw runtime_error("Wrong units!");
-    return true;
-}
+// friend bool operator!= ( PhysicalNumber& pn,  PhysicalNumber other){    
+//     if(ifDifUnit(pn.getUnit(),other.getUnit())==true)  {
+//     if (pn.getNum() == other.getNum()*unitComputer(pn.getUnit(),other.getUnit())) return false;
+//     }else throw runtime_error("Wrong units!");
+//     return true;
+// }
 
 
-friend bool operator<= ( PhysicalNumber& pn,  PhysicalNumber& other){    
-    if ((pn.getNum() == other.getNum()*unitComputer(pn.getUnit(),other.getUnit())) ||  (pn.getNum() < other.getNum()*unitComputer(pn.getUnit(),other.getUnit()))) return true;
-    else return false;
-}
+// friend bool operator<= ( PhysicalNumber& pn,  PhysicalNumber& other){    
+//     if ((pn.getNum() == other.getNum()*unitComputer(pn.getUnit(),other.getUnit())) ||  (pn.getNum() < other.getNum()*unitComputer(pn.getUnit(),other.getUnit()))) return true;
+//     else return false;
+// }
 
-friend PhysicalNumber& operator+=(PhysicalNumber& pn , PhysicalNumber other){
-    if(ifDifUnit(pn.getUnit(),other.getUnit())==true) {   
-        double x = pn.getNum()+other.getNum()*unitComputer(pn.getUnit(),other.getUnit()); 
-        pn.num = x;
-        return pn;
-    }else {throw std::runtime_error("Units do not match - ["+ariel::checkUnit(other.getUnit())+"] cannot be converted to ["+ariel::checkUnit(pn.getUnit())+"]");}
+// friend PhysicalNumber& operator+=(PhysicalNumber& pn , PhysicalNumber other){
+//     if(ifDifUnit(pn.getUnit(),other.getUnit())==true) {   
+//         double x = pn.getNum()+other.getNum()*unitComputer(pn.getUnit(),other.getUnit()); 
+//         pn.num = x;
+//         return pn;
+//     }else {throw std::runtime_error("Units do not match - ["+ariel::checkUnit(other.getUnit())+"] cannot be converted to ["+ariel::checkUnit(pn.getUnit())+"]");}
  
-}
+// }
 
 
-friend PhysicalNumber& operator-=(PhysicalNumber& pn , PhysicalNumber other){
-    if(ifDifUnit(pn.getUnit(),other.getUnit())==true) {   
-        double x = pn.getNum()-other.getNum()*unitComputer(pn.getUnit(),other.getUnit()); 
-        pn.num = x;
-        return pn;
-    }else {throw std::runtime_error("Units do not match - ["+ariel::checkUnit(other.getUnit())+"] cannot be converted to ["+ariel::checkUnit(pn.getUnit())+"]");}
+// friend PhysicalNumber& operator-=(PhysicalNumber& pn , PhysicalNumber other){
+//     if(ifDifUnit(pn.getUnit(),other.getUnit())==true) {   
+//         double x = pn.getNum()-other.getNum()*unitComputer(pn.getUnit(),other.getUnit()); 
+//         pn.num = x;
+//         return pn;
+//     }else {throw std::runtime_error("Units do not match - ["+ariel::checkUnit(other.getUnit())+"] cannot be converted to ["+ariel::checkUnit(pn.getUnit())+"]");}
  
-}
+// }
 };
 }

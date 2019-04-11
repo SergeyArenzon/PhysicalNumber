@@ -3,7 +3,7 @@
 #include "math.h"
 #include <stdexcept>
 using namespace std;
-
+using namespace ariel;
 ariel::PhysicalNumber::PhysicalNumber(double num ,Unit unit){
 
     this->num=num;
@@ -157,4 +157,99 @@ bool ariel::ifDifUnit(int x,int y){
     return false;
 
 
+}
+
+
+
+PhysicalNumber& PhysicalNumber::operator++(){//++
+num++;  
+return *this;
+}
+PhysicalNumber PhysicalNumber::operator++(int){//++
+    PhysicalNumber temp=*this;
+    num++;
+    return  temp;
+  
+}
+ostream& ariel::operator<< (ostream& os,  PhysicalNumber& pn){//<<
+    os<<pn.getNum()<<"["<<ariel::checkUnit(pn.getUnit())<<"]";
+    return os;
+}
+ istream& ariel::operator>>(istream &input, PhysicalNumber& pn) {
+    string segment;
+    vector<std::string> seglist;
+    while(std::getline(input, segment, '[')) {    
+    seglist.push_back(segment);  
+    }         
+    seglist.at(1) = seglist.at(1).substr(0, seglist.at(1).length() - 1);  
+    istringstream ss(seglist.at(0));
+    int val;
+    ss >> val;
+    pn=PhysicalNumber(val , strToUnit(seglist.at(1)));
+    return input;
+    
+    }
+
+PhysicalNumber& PhysicalNumber::operator+() {
+    return *this;
+}
+ string PhysicalNumber:: operator+ (PhysicalNumber& other){  
+    if(!ifDifUnit(this->getUnit(),other.getUnit())
+     )throw std::runtime_error("Units do not match - ["+ariel::checkUnit(other.getUnit())+"] cannot be converted to ["+ariel::checkUnit(this->getUnit())+"]");
+  
+    double x= this->getNum()+other.getNum()*unitComputer(this->getUnit(),other.getUnit());   
+    ostringstream strs;
+    strs << x;
+    string str = strs.str();
+    return str+"["+checkUnit(this->getUnit())+"]";
+}
+string PhysicalNumber:: operator- (PhysicalNumber& other){  
+    if(!ifDifUnit(this->getUnit(),other.getUnit())
+     )throw std::runtime_error("Units do not match - ["+ariel::checkUnit(other.getUnit())+"] cannot be converted to ["+ariel::checkUnit(this->getUnit())+"]");
+  
+    double x= this->getNum()-other.getNum()*unitComputer(this->getUnit(),other.getUnit());   
+    ostringstream strs;
+    strs << x;
+    string str = strs.str();
+    return str+"["+checkUnit(this->getUnit())+"]";
+}
+ bool PhysicalNumber::operator> ( PhysicalNumber& other){     
+    if (this->getNum() > other.getNum()*unitComputer(this->getUnit(),other.getUnit())) return true;
+    else return false;
+}
+ bool PhysicalNumber::operator< (  PhysicalNumber& other){    
+    if (this->getNum() < other.getNum()*unitComputer(this->getUnit(),other.getUnit())) return true;
+    else return false;
+}
+ bool PhysicalNumber::operator== (PhysicalNumber other){
+    if(ifDifUnit(this->getUnit(),other.getUnit())==true)  {
+    if (this->getNum() == other.getNum()*unitComputer(this->getUnit(),other.getUnit())) return true;
+    }else throw runtime_error("Wrong units!");
+    return false;
+}
+ bool PhysicalNumber::operator!= (PhysicalNumber other){    
+    if(ifDifUnit((*this).getUnit(),(*this).getUnit())==true)  {
+    if ((*this).getNum() == other.getNum()*unitComputer((*this).getUnit(),other.getUnit())) return false;
+    }else throw runtime_error("Wrong units!");
+    return true;
+}
+ bool PhysicalNumber::operator<= (PhysicalNumber other){    
+    if (((*this).getNum() == other.getNum()*unitComputer((*this).getUnit(),other.getUnit())) ||  ((*this).getNum() < other.getNum()*unitComputer((*this).getUnit(),other.getUnit()))) return true;
+    else return false;
+}
+PhysicalNumber& PhysicalNumber:: operator+=( PhysicalNumber other){
+    if(ifDifUnit((*this).getUnit(),other.getUnit())==true) {   
+        double x = (*this).getNum()+other.getNum()*unitComputer((*this).getUnit(),other.getUnit()); 
+        (*this).num = x;
+        return (*this);
+    }else {throw std::runtime_error("Units do not match - ["+ariel::checkUnit(other.getUnit())+"] cannot be converted to ["+ariel::checkUnit((*this).getUnit())+"]");}
+ 
+}
+PhysicalNumber& PhysicalNumber::operator-=(PhysicalNumber other){
+    if(ifDifUnit((*this).getUnit(),other.getUnit())==true) {   
+        double x = (*this).getNum()-other.getNum()*unitComputer((*this).getUnit(),other.getUnit()); 
+        (*this).num = x;
+        return (*this);
+    }else {throw std::runtime_error("Units do not match - ["+ariel::checkUnit(other.getUnit())+"] cannot be converted to ["+ariel::checkUnit((*this).getUnit())+"]");}
+ 
 }
