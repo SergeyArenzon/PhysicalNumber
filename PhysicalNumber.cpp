@@ -253,3 +253,12 @@ PhysicalNumber& PhysicalNumber::operator-=(PhysicalNumber other){
     }else {throw std::runtime_error("Units do not match - ["+ariel::checkUnit(other.getUnit())+"] cannot be converted to ["+ariel::checkUnit((*this).getUnit())+"]");}
  
 }
+ PhysicalNumber& PhysicalNumber::operator--(int) {
+    this->num -=1;
+    return *this;
+}
+
+PhysicalNumber &PhysicalNumber::operator--() {
+    this->num -=1;
+    return *this;
+}

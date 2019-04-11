@@ -39,6 +39,11 @@ bool operator!= (PhysicalNumber other);
 bool operator<= (PhysicalNumber other);
 PhysicalNumber& operator+=( PhysicalNumber other);
 PhysicalNumber& operator-=( PhysicalNumber other);
+PhysicalNumber& operator-- (int);
+PhysicalNumber& operator-- ();
+
+
+
 friend string operator-(PhysicalNumber& pn){
     double x = -(pn.getNum());
     ostringstream strs;
