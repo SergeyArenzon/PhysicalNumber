@@ -9,6 +9,11 @@ ariel::PhysicalNumber::PhysicalNumber(double num ,Unit unit){
     this->num=num;
     this->unit=unit;
 };
+PhysicalNumber::PhysicalNumber(){
+    num=NULL;
+    
+}
+
 double ariel:: PhysicalNumber::getNum(){
     return num;
 };

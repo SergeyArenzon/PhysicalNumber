@@ -20,6 +20,7 @@ ariel::Unit unit;
 double num;
 public:
 PhysicalNumber(double num ,Unit unit);
+PhysicalNumber();
 double getNum();
 Unit getUnit();
 
