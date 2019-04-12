@@ -32,7 +32,7 @@ ariel::Unit ariel:: PhysicalNumber::getUnit(){
 
 
     }
-if(3<=enm1 && enm1<=6 && 0<=enm2 && enm2<=6){///sec,min,hour
+else if(3<=enm1 && enm1<=6 && 0<=enm2 && enm2<=6){///sec,min,hour
        switch (enm1 -(enm2))
        {
            case -2:
@@ -58,7 +58,7 @@ if(3<=enm1 && enm1<=6 && 0<=enm2 && enm2<=6){///sec,min,hour
 
 
     }
-if(6<=enm1 && enm1<=9&& 6<=enm2 && enm2<=9){///g,kg,ton
+else if(6<=enm1 && enm1<=9&& 6<=enm2 && enm2<=9){///g,kg,ton
        switch (enm1 -(enm2))
        {
            case -2:
@@ -85,9 +85,9 @@ if(6<=enm1 && enm1<=9&& 6<=enm2 && enm2<=9){///g,kg,ton
 
 
 
-    }
-
- }
+    }else throw std::runtime_error("Units do not match - ["+ariel::checkUnit(enm2)+"] cannot be converted to ["+checkUnit(enm1)+"]");}
+    
+ 
 
 string ariel:: checkUnit(int x){
 
@@ -213,9 +213,11 @@ PhysicalNumber PhysicalNumber:: operator- (PhysicalNumber other){
     else return false;
 }
  bool PhysicalNumber::operator== (PhysicalNumber other){
+     
     if(ifDifUnit(this->getUnit(),other.getUnit())==true)  {
     if (this->getNum() == other.getNum()*unitComputer(this->getUnit(),other.getUnit())) return true;
-    }else throw runtime_error("Wrong units!");
+    }else 
+        throw std::runtime_error("Units do not match - ["+ariel::checkUnit(other.getUnit())+"] cannot be converted to ["+ariel::checkUnit(this->getUnit())+"]");   
     return false;
 }
  bool PhysicalNumber::operator!= (PhysicalNumber other){    

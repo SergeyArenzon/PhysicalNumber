@@ -40,7 +40,7 @@ int main() {
     .CHECK_OUTPUT(d, "30[min]")
     .CHECK_OUTPUT(d+c, "150[min]")
     .CHECK_OUTPUT(e+f, "101[cm]")
-
+    
 
 
     .setname("Incompatible dimensions")
@@ -48,6 +48,8 @@ int main() {
     .CHECK_THROWS(a+d)
     .CHECK_THROWS(b+c)
     .CHECK_THROWS(b+d)
+    .CHECK_THROWS(a>d)
+    .CHECK_THROWS(b>=d)
 
     .setname("Basic input")
     .CHECK_OK(istringstream("700[kg]") >> a)
