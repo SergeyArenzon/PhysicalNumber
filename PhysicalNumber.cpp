@@ -19,27 +19,15 @@ ariel::Unit ariel:: PhysicalNumber::getUnit(){
 
  double ariel::unitComputer(int enm1,int enm2){
     if(0<=enm1 && enm1<=2 && 0<=enm2 && enm2<=2){///c,m,km
-       switch (enm1 -(enm2))
-       {
-           case -2:
-               return pow(10, 4); 
-               break;
-            case -1:
-             return pow(10,3);
-            break;
-
-            case 0:
-                return 1;
-            case 1:
-                return pow(10,-3);
-                break;
-            case 2:
-                return pow(10,-4);
-                break;
-
-           default:
-               break;
-       }
+       if(enm1==0&&enm2==1) return 100; //cm m
+       else if(enm1==1&&enm2==0) return 0.01;//m cm
+       else if(enm1==0&&enm2==2) return (1000*100); //cm km
+       else if(enm1==2&&enm2==0) return 0.00001; //km cm
+       else if(enm1==1&&enm2==2) return 1000;//m km
+       else if(enm1==2&&enm2==1) return 0.001;//km m
+       else if(enm1==0&&enm2==0) return 1;
+       else if(enm1==1&&enm2==1) return 1;
+       else if(enm1==2&&enm2==2) return 1;
 
 
 
@@ -241,7 +229,7 @@ PhysicalNumber PhysicalNumber:: operator- (PhysicalNumber other){
     else return false;
 }
 PhysicalNumber& PhysicalNumber:: operator+=( PhysicalNumber other){
-    if(ifDifUnit((*this).getUnit(),other.getUnit())==true) {   
+    if(ifDifUnit((*this).getUnit(),other.getUnit())==true) { 
         double x = (*this).getNum()+other.getNum()*unitComputer((*this).getUnit(),other.getUnit()); 
         (*this).num = x;
         return (*this);
