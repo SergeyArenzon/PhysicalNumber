@@ -48,8 +48,7 @@ int main() {
     .CHECK_THROWS(a+d)
     .CHECK_THROWS(b+c)
     .CHECK_THROWS(b+d)
-    .CHECK_THROWS(a>d)
-    .CHECK_THROWS(b>=d)
+    
 
     .setname("Basic input")
     .CHECK_OK(istringstream("700[kg]") >> a)
@@ -57,10 +56,10 @@ int main() {
 
     // YOUR TESTS - INSERT AS MANY AS YOU WANT
 
+    .CHECK_THROWS(a>d)
+    .CHECK_THROWS(b>=d)
+    .CHECK_THROWS(d+e)
     
-
-
-
 
 
 

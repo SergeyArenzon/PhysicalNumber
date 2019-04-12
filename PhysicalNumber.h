@@ -29,14 +29,13 @@ PhysicalNumber& operator++() ;
 PhysicalNumber& operator++(int);
 friend ostream& operator<< (ostream& os,  PhysicalNumber pn);
 friend istream& operator>>(istream &input, PhysicalNumber& pn);
-//string operator+ (PhysicalNumber& other);
-//string operator- (PhysicalNumber& other);
 bool operator> (PhysicalNumber& other);
 bool operator< (PhysicalNumber& other);
 bool operator== (PhysicalNumber other);
 bool operator!= (PhysicalNumber other);
 bool operator<= (PhysicalNumber other);
 bool operator>= (PhysicalNumber other);
+
 PhysicalNumber& operator+=( PhysicalNumber other);
 PhysicalNumber& operator-=( PhysicalNumber other);
 PhysicalNumber& operator-- (int);

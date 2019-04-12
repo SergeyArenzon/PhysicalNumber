@@ -149,10 +149,7 @@ bool ariel::ifDifUnit(int x,int y){
 
 }
 
-
-
-
-
+/////////////////////operators////////////////////
 ostream& ariel::operator<< (ostream& os,  PhysicalNumber pn){//<<
     os<<pn.getNum()<<"["<<ariel::checkUnit(pn.getUnit())<<"]";
     return os;
@@ -230,6 +227,10 @@ PhysicalNumber PhysicalNumber:: operator- (PhysicalNumber other){
     if (((*this).getNum() == other.getNum()*unitComputer((*this).getUnit(),other.getUnit())) ||  ((*this).getNum() < other.getNum()*unitComputer((*this).getUnit(),other.getUnit()))) return true;
     else return false;
 }
+bool PhysicalNumber::operator>= (PhysicalNumber other){    
+    if (((*this).getNum() == other.getNum()*unitComputer((*this).getUnit(),other.getUnit())) ||  ((*this).getNum() > other.getNum()*unitComputer((*this).getUnit(),other.getUnit()))) return true;
+    else return false;
+}
 PhysicalNumber& PhysicalNumber:: operator+=( PhysicalNumber other){
     if(ifDifUnit((*this).getUnit(),other.getUnit())==true) { 
         double x = (*this).getNum()+other.getNum()*unitComputer((*this).getUnit(),other.getUnit()); 
@@ -259,12 +260,7 @@ PhysicalNumber &PhysicalNumber::operator--() {
     this->num+=1;
     return *this;
 }
-
 PhysicalNumber &PhysicalNumber::operator++() {
     this->num +=1;
     return *this;
-}
-bool PhysicalNumber::operator>= (PhysicalNumber other){    
-    if (((*this).getNum() == other.getNum()*unitComputer((*this).getUnit(),other.getUnit())) ||  ((*this).getNum() > other.getNum()*unitComputer((*this).getUnit(),other.getUnit()))) return true;
-    else return false;
 }
