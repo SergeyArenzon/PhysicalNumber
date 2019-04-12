@@ -62,19 +62,21 @@ if(6<=enm1 && enm1<=9&& 6<=enm2 && enm2<=9){///g,kg,ton
        switch (enm1 -(enm2))
        {
            case -2:
-               return pow(10, 4); 
+               return 1000*1000; 
                break;
             case -1:
-             return pow(10,3);
+             return 1000;
             break;
 
             case 0:
                 return 1;
             case 1:
-                return pow(10,-3);
+                return 0.001;
+
                 break;
             case 2:
-                return pow(10,-4);
+                return 0.000001;
+
                 break;
 
            default:
@@ -191,8 +193,6 @@ PhysicalNumber PhysicalNumber::operator-() {
     PhysicalNumber a(x,u);
     return a;
 }
-
-
 PhysicalNumber PhysicalNumber:: operator- (PhysicalNumber other){  
     if(!ifDifUnit(this->getUnit(),other.getUnit())
      )throw std::runtime_error("Units do not match - ["+ariel::checkUnit(other.getUnit())+"] cannot be converted to ["+ariel::checkUnit(this->getUnit())+"]");
