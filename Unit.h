@@ -11,7 +11,8 @@ enum  Unit{
     HOUR,
     G,
     KG,
-    TON
+    TON,
+    DEF
 
 };
 

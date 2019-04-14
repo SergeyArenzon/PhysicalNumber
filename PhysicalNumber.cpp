@@ -125,7 +125,6 @@ string ariel:: checkUnit(int x){
 
 return "";}
 ariel::Unit ariel::strToUnit(string str){
-    
     if(str.compare("cm")==0) return Unit::CM;
     else if(str.compare("m")==0) return Unit::M; 
     else if(str.compare("km")==0) return Unit::KM;
@@ -135,7 +134,7 @@ ariel::Unit ariel::strToUnit(string str){
     else if(str.compare("g")==0) return Unit::G;      
     else if(str.compare("kg")==0) return Unit::KG;      
     else if(str.compare("ton")==0) return Unit::TON;    
-return Unit::G;
+return Unit::DEF;
 }
 bool ariel::ifDifUnit(int x,int y){
     if(0<=x && x<=2 && 0<=y && y<=2) return true;

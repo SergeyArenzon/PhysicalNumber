@@ -25,7 +25,8 @@ int main() {
     PhysicalNumber d(30, Unit::MIN);
     PhysicalNumber e(1, Unit::CM);
     PhysicalNumber f(1, Unit::M);
-    
+    PhysicalNumber g(999, Unit::G);
+
     testcase
     .setname("Basic output")
     .CHECK_OUTPUT(a, "2[km]")
@@ -73,6 +74,8 @@ int main() {
             .CHECK_OUTPUT(c++, "2.5[hour]")
             .CHECK_OUTPUT(c, "3.5[hour]")
             .CHECK_OUTPUT(++c, "4.5[hour]")
+            .CHECK_OUTPUT(g, "999[g]")
+
 
             .setname("Incompatible dimensions")
             .CHECK_THROWS(c+a)
