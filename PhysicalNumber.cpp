@@ -244,17 +244,18 @@ PhysicalNumber& PhysicalNumber::operator-=(const PhysicalNumber& other){
  
 }
 PhysicalNumber& PhysicalNumber::operator--(int) {
-    this->num -=1;
-    return *this;
+    PhysicalNumber temp(*this);
+    this->num-=1;
+    return temp;
 }
 PhysicalNumber &PhysicalNumber::operator--() {
     this->num -=1;
     return *this;
 }
 PhysicalNumber& PhysicalNumber::operator++(int) {
-
+    PhysicalNumber temp(*this);
     this->num+=1;
-    return *this;
+    return temp;
 }
 PhysicalNumber &PhysicalNumber::operator++() {
     this->num +=1;

@@ -70,8 +70,9 @@ int main() {
             .CHECK_OUTPUT(d+d,"60[min]")
             .CHECK_OUTPUT((c+=d), "2.5[hour]")
             .CHECK_OUTPUT(c, "2.5[hour]")
-            .CHECK_OUTPUT(++c, "3.5[hour]")
-
+            .CHECK_OUTPUT(c++, "2.5[hour]")
+            .CHECK_OUTPUT(c, "3.5[hour]")
+            .CHECK_OUTPUT(++c, "4.5[hour]")
 
             .setname("Incompatible dimensions")
             .CHECK_THROWS(c+a)
