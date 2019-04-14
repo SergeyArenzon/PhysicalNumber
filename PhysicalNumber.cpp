@@ -161,7 +161,8 @@ istream& ariel::operator>>(istream &input, PhysicalNumber& pn) {
     istringstream ss(seglist.at(0));
     int val;
     ss >> val;
-    pn=PhysicalNumber(val , strToUnit(seglist.at(1)));
+    if(strToUnit(seglist.at(1))==Unit::DEF){}
+        else {pn=PhysicalNumber(val , strToUnit(seglist.at(1)));}
     return input;
     
     }
