@@ -9,16 +9,13 @@ ariel::PhysicalNumber::PhysicalNumber(double num ,Unit unit){
     this->num=num;
     this->unit=unit;
 };
-
 double ariel:: PhysicalNumber::getNum(){
     return num;
 };
-
 ariel::Unit ariel:: PhysicalNumber::getUnit(){
     return unit;    
 };
-
- double ariel::unitComputer(int enm1,int enm2){
+double ariel::unitComputer(int enm1,int enm2){
     if(0<=enm1 && enm1<=2 && 0<=enm2 && enm2<=2){///c,m,km
        if(enm1==0&&enm2==1) return 100; //cm m
        else if(enm1==1&&enm2==0) return 0.01;//m cm
@@ -77,7 +74,6 @@ else if(6<=enm1 && enm1<=9&& 6<=enm2 && enm2<=9){///g,kg,ton
                 break;
             case 2:
                 return 0.000001;
-
                 break;
 
            default:
@@ -86,10 +82,12 @@ else if(6<=enm1 && enm1<=9&& 6<=enm2 && enm2<=9){///g,kg,ton
 
 
 
-    }else throw std::runtime_error("Units do not match - ["+ariel::checkUnit(enm2)+"] cannot be converted to ["+checkUnit(enm1)+"]");}
-    
- 
+    }else{
+        throw std::runtime_error("Units do not match - ["+ariel::checkUnit(enm2)+"] cannot be converted to ["+checkUnit(enm1)+"]");
 
+
+}
+    return false;  }
 string ariel:: checkUnit(int x){
 
     switch (x)
@@ -125,8 +123,7 @@ string ariel:: checkUnit(int x){
             break;
     }
 
-}
-
+return "";}
 ariel::Unit ariel::strToUnit(string str){
     
     if(str.compare("cm")==0) return Unit::CM;
@@ -138,9 +135,8 @@ ariel::Unit ariel::strToUnit(string str){
     else if(str.compare("g")==0) return Unit::G;      
     else if(str.compare("kg")==0) return Unit::KG;      
     else if(str.compare("ton")==0) return Unit::TON;    
-    
-}
 
+}
 bool ariel::ifDifUnit(int x,int y){
     if(0<=x && x<=2 && 0<=y && y<=2) return true;
     else if(3<=x && x<=6 && 3<=y && y<=6) return true;
@@ -202,7 +198,6 @@ PhysicalNumber PhysicalNumber:: operator- (const PhysicalNumber& other){
     return a;
 }
 bool PhysicalNumber::operator> (const PhysicalNumber&  other){
-    
     if (this->getNum() > other.num*unitComputer(this->getUnit(),other.unit)) return true;
     else return false;
 }
